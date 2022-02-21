@@ -1,0 +1,7 @@
+.search {
+    outline: 1px solid red;
+    display: inline-flex;
+    flex-direction: row;
+    width: calc(100% - 80px);
+    position: relative;
+}

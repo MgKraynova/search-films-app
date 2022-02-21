@@ -1,0 +1,7 @@
+.page {
+    max-width: 1440px;
+    min-width: 320px;
+    background-color: #E1E1E1;
+    font-family: Roboto, Arial, sans-serif;
+    margin: 0 auto;
+}

@@ -1,0 +1,10 @@
+.info__return {
+    align-self: end;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* or 143% */
+    text-align: center;
+    color: #000000;
+}

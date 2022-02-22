@@ -2,6 +2,7 @@
     outline: 1px solid red;
     display: inline-flex;
     flex-direction: row;
-    width: calc(100% - 80px);
+    width: 100%;
     position: relative;
+    justify-content: space-between;
 }

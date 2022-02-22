@@ -1,0 +1,6 @@
+.info__stickers {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    outline: 1px solid blueviolet;
+}

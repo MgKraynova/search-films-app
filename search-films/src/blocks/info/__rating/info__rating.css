@@ -1,0 +1,7 @@
+.info__rating {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    outline: 1px solid blue;
+}

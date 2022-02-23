@@ -1,34 +1,34 @@
 import imdbIcon from "../images/imdb-icon.svg";
+import {Link} from "react-router-dom";
 
-function Info() {
+function Info({data}) {
     return (
         <div className="info">
-            <a className="link info__return">Return</a>
+            <Link to="/card" className="link info__return">Return</Link>
             <div className="info__content" >
-                <img className="info__image" />
+                <img className="info__image" src={data.Poster} alt={data.Title}/>
                 <div className="info__wrapper" >
-                    <h2 className="info__title">title</h2>
+                    <h2 className="info__title">{data.Title}</h2>
                     <div className="info__stickers">
                         <div className="info__container" >
-                            <p className="info__text">25/10/2019</p>
+                            <p className="info__text">{data.Year}</p>
                         </div>
                         <div className="info__container" >
-                            <p className="info__text">Drama, Romance</p>
+                            <p className="info__text">{data.Genre}</p>
                         </div>
                         <div className="info__container" >
-                            <p className="info__text">135 min</p>
+                            <p className="info__text">{data.Runtime}</p>
                         </div>
                     </div>
+                    {(data.Ratings[0].Source === 'Internet Movie Database') &&
                     <div className="info__rating">
                         <img className="info__icon" src={imdbIcon} alt="imdb icon"/>
-                        <p className="info__rating-number">7,1</p>
+                        <p className="info__rating-number">{data.Ratings[0].Value}</p>
                     </div>
-                    <p className="info__description" >Murphy is an American living in Paris who enters a highly sexually
-                        and emotionally charged relationship with Electra. Unaware of the
-                        effect it will have on their relationship, they invite their pretty
-                        neighbor into their bed.</p>
+                    }
+                    <p className="info__description" >{data.Plot}</p>
                     <p className="info__actors" ><span className="accent" >Actors: </span>
-                        Aomi Muyock, Karl Glusman, Klara Kristin</p>
+                        {data.Actors}</p>
                 </div>
             </div>
         </div>

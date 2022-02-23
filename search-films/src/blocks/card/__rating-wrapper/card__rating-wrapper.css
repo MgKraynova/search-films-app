@@ -1,6 +1,6 @@
 .card__rating-wrapper {
     height: 28px;
-    width: 35px;
+    min-width: 35px;
     background-color: #89C939;
     border-radius: 4.44767px;
     display: flex;
@@ -10,4 +10,6 @@
     position: absolute;
     top: 270px;
     left: 25px;
+    padding-left: 3px;
+    padding-right: 3px;
 }

@@ -1,10 +1,11 @@
-import searchIcon from '../images/search-icon.svg';
 import Card from "./Card";
 import Info from "./Info";
 import {useState} from "react";
 import {Route, Routes} from "react-router-dom";
 import SearchForm from "./SearchForm";
 import {useNavigate} from "react-router-dom";
+import NotFound from "./NotFound";
+import Error from "./Error";
 
 function Main() {
 
@@ -35,11 +36,17 @@ function Main() {
             .then((res) => {
                 console.log(res);
 
-                setData(res);
-                navigate("/card");
+                if (res.Error) {
+                    navigate("/not-found");
+                } else {
+                    setData(res);
+                    navigate("/card");
+                }
+
             })
             .catch((err) => {
                 handleApiError(err);
+                navigate("/error");
             });
         // .finally(() => {
         //     setIsLoading(false);
@@ -51,8 +58,11 @@ function Main() {
             <SearchForm handleChange={setInputValue} handleSubmit={search}/>
             <div className="main__content">
                 <Routes>
+                    <Route exact path="/" element={null} />
                     <Route path="/card" element={<Card data={data}/>}/>
-                    <Route path="/info" element={<Info data={data}/>} />
+                    <Route path="/info" element={<Info data={data}/>}/>
+                    <Route path="not-found" element={<NotFound/>} />
+                    <Route path="*" element={<Error />} />
                     {/*//todo сделать роут "инфа не найдена"*/}
                 </Routes>
             </div>

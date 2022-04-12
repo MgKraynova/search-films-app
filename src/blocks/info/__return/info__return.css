@@ -7,4 +7,10 @@
     /* or 143% */
     text-align: center;
     color: #000000;
+    transition: filter 200ms linear, transform 200ms linear;
+}
+
+.info__return:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

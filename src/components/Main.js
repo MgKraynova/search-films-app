@@ -1,4 +1,3 @@
-import Card from "./Card";
 import Info from "./Info";
 import {useState} from "react";
 import {Route, Routes} from "react-router-dom";
@@ -20,6 +19,8 @@ function Main() {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const [filmRating, setFilmRating] = useState('');
+
 
     function handleApiError(err) {
         console.log('Запрос не выполнен: ', err);
@@ -32,7 +33,7 @@ function Main() {
 
         setIsLoading(true);
 
-        // return fetch(`http://www.omdbapi.com/?t=${inputValue}&plot=full&apikey=9b9c63d2`)
+        // return fetch(`http://www.omdbapi.com/?t=${inputValue}&plot=full&apikey=9b9c63d2`) // возвращает 1 фильм
         return fetch(`http://www.omdbapi.com/?s=${inputValue}&plot=full&apikey=9b9c63d2&`)
             .then((res) => {
                 if (res.ok) {
@@ -42,9 +43,6 @@ function Main() {
                 }
             })
             .then((res) => {
-                console.log('res.Search', res.Search);
-                // console.log(res);
-
                 if (res.Error) {
                     navigate("/not-found");
                 } else {
@@ -63,6 +61,11 @@ function Main() {
     }
 
     function showCardDetails(filmId) {
+
+        navigate("/");
+
+        setIsLoading(true);
+
         return fetch(`http://www.omdbapi.com/?i=${filmId}&plot=full&apikey=9b9c63d2`)
             .then((res) => {
                 if (res.ok) {
@@ -72,8 +75,14 @@ function Main() {
                 }
             })
             .then((res) => {
-                // console.log('res v showCardDetails', res);
                 setCurrentCard(res);
+
+                res.Ratings.forEach((rating) => {
+                    if (rating.Source === 'Internet Movie Database') {
+                        setFilmRating(rating.Value);
+                    }
+                })
+
                 navigate("/info");
             })
             .catch((err) => {
@@ -93,9 +102,8 @@ function Main() {
                 </div> : ''}
                 <Routes>
                     <Route exact path="/" element={null} />
-                    {/*<Route path="/card" element={<Card data={cards}/>}/>*/}
                     <Route path="/cards" element={<Cards cards={cards} showCardDetails={showCardDetails} />}/>
-                    <Route path="/info" element={currentCard && <Info data={currentCard}/>}/>
+                    <Route path="/info" element={currentCard && <Info data={currentCard} rating={filmRating}/>}/>
                     <Route path="not-found" element={<NotFound/>} />
                     <Route path="error" element={<Error/>} />
                     <Route path="*" element={<Error />} />

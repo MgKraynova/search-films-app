@@ -46,7 +46,6 @@ function Main() {
 
         setIsLoading(true);
 
-        // return fetch(`http://www.omdbapi.com/?t=${inputValue}&plot=full&apikey=9b9c63d2`) // возвращает 1 фильм
         return fetch(`http://www.omdbapi.com/?s=${inputValue}&plot=full&apikey=9b9c63d2&`)
             .then((res) => {
                 if (res.ok) {

@@ -1,5 +1,5 @@
 import Info from "./Info";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 import SearchForm from "./SearchForm";
 import {useNavigate} from "react-router-dom";
@@ -9,13 +9,26 @@ import Cards from "./Cards";
 
 function Main() {
 
+    useEffect(() => {
+
+        if (sessionStorage.getItem('cards')) {
+            let cardsFromStorage = JSON.parse(sessionStorage.getItem('cards'));
+            setCards(cardsFromStorage);
+        } else {
+            navigate('/');
+        }
+
+    }, []);
+
     const [inputValue, setInputValue] = useState('');
 
-    const [cards, setCards] = useState(null);
+    const [cards, setCards] = useState(JSON.parse(sessionStorage.getItem('cards')) ?
+        JSON.parse(sessionStorage.getItem('cards')) : null);
 
-    const [currentCard, setCurrentCard] = useState(null);
+    const [currentCard, setCurrentCard] = useState(JSON.parse(sessionStorage.getItem('currentCard')) ?
+        JSON.parse(sessionStorage.getItem('currentCard')) : null);
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -47,6 +60,9 @@ function Main() {
                     navigate("/not-found");
                 } else {
                     setCards(res.Search);
+
+                    sessionStorage.setItem('cards', JSON.stringify(res.Search));
+
                     navigate("/cards");
                 }
 
@@ -55,9 +71,9 @@ function Main() {
                 handleApiError(err);
                 navigate("/error");
             })
-        .finally(() => {
-            setIsLoading(false);
-        });
+            .finally(() => {
+                setIsLoading(false);
+            });
     }
 
     function showCardDetails(filmId) {
@@ -75,6 +91,9 @@ function Main() {
                 }
             })
             .then((res) => {
+
+                sessionStorage.setItem('currentCard', JSON.stringify(res));
+
                 setCurrentCard(res);
 
                 res.Ratings.forEach((rating) => {
@@ -101,12 +120,12 @@ function Main() {
                 {isLoading ? <div className="loader">
                 </div> : ''}
                 <Routes>
-                    <Route exact path="/" element={null} />
-                    <Route path="/cards" element={<Cards cards={cards} showCardDetails={showCardDetails} />}/>
+                    <Route path="/" element={null}/>
+                    <Route path="/cards" element={<Cards cards={cards} showCardDetails={showCardDetails}/>}/>
                     <Route path="/info" element={currentCard && <Info data={currentCard} rating={filmRating}/>}/>
-                    <Route path="not-found" element={<NotFound/>} />
-                    <Route path="error" element={<Error/>} />
-                    <Route path="*" element={<Error />} />
+                    <Route path="not-found" element={<NotFound/>}/>
+                    <Route path="error" element={<Error/>}/>
+                    <Route path="*" element={<Error/>}/>
                 </Routes>
             </div>
         </main>

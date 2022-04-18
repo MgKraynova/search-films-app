@@ -18,11 +18,13 @@ function Info(props) {
                             <p className="info__text">{props.data.Year}</p>
                         </div>
                         <div className="info__container">
-                            <p className="info__text">{props.data.Genre}</p>
+                            <p className="info__text">{props.data.Genre === 'N/A' ? '' : props.data.Genre}</p>
                         </div>
-                        <div className="info__container">
-                            <p className="info__text">{props.data.Runtime}</p>
-                        </div>
+                        {props.data.Runtime === 'N/A' ? null :
+                            <div className="info__container">
+                                <p className="info__text">{props.data.Runtime}</p>
+                            </div>}
+
                     </div>
                     {
                         props.rating ?
@@ -31,7 +33,7 @@ function Info(props) {
                                 <p className="info__rating-number">{props.rating}</p>
                             </div> : ''
                     }
-                    <p className="info__description">{props.data.Plot}</p>
+                    <p className="info__description">{props.data.Plot === 'N/A' ? '' : props.data.Plot}</p>
                     <p className="info__actors"><span className="accent">Actors: </span>
                         {props.data.Actors}</p>
                 </div>

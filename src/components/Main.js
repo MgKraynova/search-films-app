@@ -81,7 +81,7 @@ function Main() {
 
         setIsLoading(true);
 
-        return fetch(`http://www.omdbapi.com/?i=${filmId}&plot=full&apikey=9b9c63d2`)
+        return fetch(`https://www.omdbapi.com/?i=${filmId}&plot=full&apikey=9b9c63d2`)
             .then((res) => {
                 if (res.ok) {
                     return res.json();

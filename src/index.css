@@ -15,6 +15,7 @@
 @import url(./blocks/search/__icon/search__icon.css);
 @import url(./blocks/search/__button/search__button.css);
 
+@import url(./blocks/main/main.css);
 @import url(./blocks/main/__content/main__content.css);
 
 @import url(./blocks/card/card.css);

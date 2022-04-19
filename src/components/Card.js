@@ -1,9 +1,6 @@
-import {useNavigate, Navigate} from "react-router-dom";
 import notFoundImage from '../images/image-not-found.png';
 
 function Card({card, showCardDetails}) {
-
-    let navigate = useNavigate();
 
     function handleDetailsClick() {
         showCardDetails(card.imdbID);

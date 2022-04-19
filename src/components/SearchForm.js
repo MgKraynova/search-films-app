@@ -12,6 +12,9 @@ function SearchForm({handleChange, handleSubmit}) {
             <input className="search__input"
                    placeholder="Please enter film name"
                    onChange={handleInputValueChange}
+                   required
+                   type="text"
+                   minLength="1"
             />
             <img className="search__icon" src={searchIcon} alt="search icon"/>
             <button type="submit" className="search__button">Search</button>
